@@ -60,16 +60,29 @@ class JFormFieldMedia extends JFormField
 			// Load the modal behavior script.
 			JHtml::_('behavior.modal');
 
-			// Build the script.
+			// Build the script. (BP id -> value? fireEvent doesn't fire onchange, only mootools change events.)
 			$script = array();
 			$script[] = '	function jInsertFieldValue(value, id) {';
-			$script[] = '		var old_id = document.id(id).value;';
-			$script[] = '		if (old_id != id) {';
-			$script[] = '			var elem = document.id(id);';
+			$script[] = '		var old_value = document.id(id).value;';
+			$script[] = '		if (old_value != value) {';
+			$script[] = '			var elem = document.id(id)';
 			$script[] = '			elem.value = value;';
 			$script[] = '			elem.fireEvent("change");';
+			$script[] = '			jMediaRefreshPreview(value, id);';
 			$script[] = '		}';
 			$script[] = '	}';
+			
+			$script[] = '	function jMediaRefreshPreview(value, id) {';
+			$script[] = '		var img = document.id(id + "_preview");';
+			$script[] = '		if (img) {';
+			$script[] = '			if (value) {';
+			$script[] = '				img.src = "' . JURI::root() . '" + value;';
+			$script[] = '			} else { ';
+			$script[] = '				img.src = ""';
+			$script[] = '			} ';
+			$script[] = '		} ';
+			$script[] = '	}';
+			
 
 			// Add the script to the document head.
 			JFactory::getDocument()->addScriptDeclaration(implode("\n", $script));
@@ -128,12 +141,28 @@ class JFormFieldMedia extends JFormField
 		$html[] = '		<a title="' . JText::_('JLIB_FORM_BUTTON_CLEAR') . '"' . ' href="#" onclick="';
 		$html[] = 'document.id(\'' . $this->id . '\').value=\'\';';
 		$html[] = 'document.id(\'' . $this->id . '\').fireEvent(\'change\');';
+		$html[] = 'jMediaRefreshPreview(\'\', \'' . $this->id . '\');';
 		$html[] = 'return false;';
 		$html[] = '">';
 		$html[] = JText::_('JLIB_FORM_BUTTON_CLEAR') . '</a>';
 		$html[] = '	</div>';
 		$html[] = '</div>';
 
+		// The Preview.
+		if ($this->value && file_exists(JPATH_ROOT . '/' . $this->value))
+		{
+			$src = JURI::root() . $this->value;
+		}
+		else
+		{
+			$src = '';
+		}
+		
+		$html[] ='<div class="media-preview">';
+		$html[] ='<img id="' . $this->id . '_preview" class="media-preview" src="' . $src . '" style="width:160px;padding-left: 150px; " />';
+		$html[] ='</div>';
+		
+		
 		return implode("\n", $html);
 	}
 }
