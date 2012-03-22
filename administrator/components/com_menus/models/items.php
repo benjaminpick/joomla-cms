@@ -169,6 +169,12 @@ class MenusModelItems extends JModelList
 
 		// Select all fields from the table.
 		$query->select($this->getState('list.select', 'a.*'));
+		$query->select('CASE a.type' .
+			' WHEN ' . $db->quote('component') . ' THEN a.published+2*(e.enabled-1) ' .
+			' WHEN ' . $db->quote('url') . ' THEN a.published+2 ' .
+			' WHEN ' . $db->quote('alias') . ' THEN a.published+4 ' .
+			' WHEN ' . $db->quote('separator') . ' THEN a.published+6 ' .
+			' END AS published');
 		$query->from($db->quoteName('#__menu').' AS a');
 
 		// Join over the language
@@ -194,6 +200,10 @@ class MenusModelItems extends JModelList
 			$query->join('LEFT', '#__associations AS asso2 ON asso2.key = asso.key');
 			$query->group('a.id');
 		}
+
+		// Join over the extensions
+		$query->select('e.name AS name');
+		$query->join('LEFT', '#__extensions AS e ON e.extension_id = a.component_id');
 
 		// Exclude the root category.
 		$query->where('a.id > 1');

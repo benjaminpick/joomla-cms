@@ -159,10 +159,8 @@ class JSchemaChangeset extends JObject
 	 * @since   2.5
 	 */
 	public function getSchema() {
-		foreach ($this->changeItems as $item) {
-			$result = $item->file;
-		}
-		$result = new SplFileInfo($item->file);
+		$updateFiles = $this->getUpdateFiles();
+		$result = new SplFileInfo(array_pop($updateFiles));
 		return $result->getBasename('.sql');
 	}
 
@@ -182,9 +180,9 @@ class JSchemaChangeset extends JObject
 
 		// Default folder to core com_admin
 		if (!$this->folder) {
-			$this->folder = JPATH_ADMINISTRATOR.'/components/com_admin/sql/updates/'.$sqlFolder;
+			$this->folder = JPATH_ADMINISTRATOR.'/components/com_admin/sql/updates/';
 		}
-		return JFolder::files($this->folder, '\.sql$', 1, true);
+		return JFolder::files($this->folder . '/' . $sqlFolder, '\.sql$', 1, true);
 	}
 
 	/**
