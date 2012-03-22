@@ -193,8 +193,8 @@ class JFormFieldMedia extends JFormField
 			{
 				$html[] = JHtml::tooltip($previewImgEmpty . $previewImg, JText::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'), '', JText::_('JLIB_FORM_MEDIA_PREVIEW_TIP_TITLE'));
 			}
-			else 
-			{				
+			else
+			{
 				$html[] = ' ' . $previewImgEmpty;
 				$html[] = ' ' . $previewImg;
 			}
