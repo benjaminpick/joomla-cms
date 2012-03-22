@@ -88,7 +88,6 @@ class JFormFieldMedia extends JFormField
 			$script[] = '		} ';
 			$script[] = '	}';
 			
-
 			// Add the script to the document head.
 			JFactory::getDocument()->addScriptDeclaration(implode("\n", $script));
 
@@ -155,7 +154,7 @@ class JFormFieldMedia extends JFormField
 		$preview = (string) $this->element['preview'];
 		$showPreview = true;
 		$showAsTooltip = false;
-		switch($preview)
+		switch ($preview)
 		{
 			case 'no':
 			case 'none':
@@ -187,19 +186,19 @@ class JFormFieldMedia extends JFormField
 				'style' => 'max-width:160px; max-height:100px;'
 			);
 			$previewImg = JHtml::image($src, JText::_('JLIB_FORM_MEDIA_PREVIEW_ALT'), $attr);
-			$previewImgEmpty =' <div id="' . $this->id . '_preview_empty">' . JText::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY') . '</div>';
+			$previewImgEmpty = ' <div id="' . $this->id . '_preview_empty">' . JText::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY') . '</div>';
 			
-			$html[] ='<div class="media-preview fltlft">';
+			$html[] = '<div class="media-preview fltlft">';
 			if ($showAsTooltip)
 			{
 				$html[] = JHtml::tooltip($previewImgEmpty . $previewImg, JText::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'), '', JText::_('JLIB_FORM_MEDIA_PREVIEW_TIP_TITLE'));
 			}
 			else 
 			{				
-				$html[] =' ' . $previewImgEmpty;
-				$html[] =' ' . $previewImg;
+				$html[] = ' ' . $previewImgEmpty;
+				$html[] = ' ' . $previewImg;
 			}
-			$html[] ='</div>';
+			$html[] = '</div>';
 		}
 		
 		return implode("\n", $html);
