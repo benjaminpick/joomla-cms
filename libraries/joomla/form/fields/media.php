@@ -80,8 +80,10 @@ class JFormFieldMedia extends JFormField
 			$script[] = '		if (img) {';
 			$script[] = '			if (value) {';
 			$script[] = '				img.src = "' . JURI::root() . '" + value;';
+			$script[] = '				document.id(id + "_preview_empty").setStyle("display", "none");';
 			$script[] = '			} else { ';
 			$script[] = '				img.src = ""';
+			$script[] = '				document.id(id + "_preview_empty").setStyle("display", "");';
 			$script[] = '			} ';
 			$script[] = '		} ';
 			$script[] = '	}';
@@ -150,19 +152,55 @@ class JFormFieldMedia extends JFormField
 		$html[] = '</div>';
 
 		// The Preview.
-		if ($this->value && file_exists(JPATH_ROOT . '/' . $this->value))
+		$preview = (string) $this->element['preview'];
+		$showPreview = true;
+		$showAsTooltip = false;
+		switch($preview)
 		{
-			$src = JURI::root() . $this->value;
-		}
-		else
-		{
-			$src = '';
+			case 'no':
+			case 'none':
+				$showPreview = false;
+				break;
+			case 'yes':
+			case 'show':
+				break;
+			case 'tooltip':
+			default:
+				$showAsTooltip = true;
+				break;
 		}
 		
-		$html[] ='<div class="media-preview">';
-		$html[] ='<img id="' . $this->id . '_preview" class="media-preview" src="' . $src . '" style="width:160px;padding-left: 150px; " />';
-		$html[] ='</div>';
-		
+		if ($showPreview)
+		{
+			if ($this->value && file_exists(JPATH_ROOT . '/' . $this->value))
+			{
+				$src = JURI::root() . $this->value;
+			}
+			else
+			{
+				$src = '';
+			}
+			
+			$attr = array(
+				'id' => $this->id . '_preview',
+				'class' => 'media-preview',
+				'style' => 'max-width:160px; max-height:100px;'
+			);
+			$previewImg = JHtml::image($src, JText::_('JLIB_FORM_MEDIA_PREVIEW_ALT'), $attr);
+			$previewImgEmpty =' <div id="' . $this->id . '_preview_empty">' . JText::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY') . '</div>';
+			
+			$html[] ='<div class="media-preview fltlft">';
+			if ($showAsTooltip)
+			{
+				$html[] = JHtml::tooltip($previewImgEmpty . $previewImg, JText::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'), '', JText::_('JLIB_FORM_MEDIA_PREVIEW_TIP_TITLE'));
+			}
+			else 
+			{				
+				$html[] =' ' . $previewImgEmpty;
+				$html[] =' ' . $previewImg;
+			}
+			$html[] ='</div>';
+		}
 		
 		return implode("\n", $html);
 	}
