@@ -26,9 +26,66 @@ $ -> Language fix or change
 - -> Removed
 ! -> Note
 
+-------------------- 2.5.4 Stable Release [2-April-2012] ------------------
+
+30-Mar-2012 Mark Dexter
+ # Sample data fixes for SQL Server
+ # [#28316] Incorrect ordering value if editing last module
+ # [#28325] Deleted files not being deleted during version update
+
+29-Mar-2012 Mark Dexter
+ # [#28323] com_joomlaupdate does not delete joomla.xml file in root folder
+ # [#28318] Remove duplicate SQL Server directories.
+
+29-Mar-2012 Christophe Demko
+ $ Updating installation ini file sk-SK
+
+28-Mar-2012 Mark Dexter
+ # [#28303] Change 28026 so it doesn't modify platform files
+ # [#28252] Don't show the site secret and optimize ConfigModelApplication
+ # [#28172] Backslashes are added every time you save Wrapper menu item
+
+28-Mar-2012 Christophe Demko
+ # [#28314] #28299 can cause performance issue if root category is loaded in non multilanguage mode
+ # [#27961] Template is not displayed in the Styles (backend)
+ # [#28120] XHTML 1.0 Transitional
+
+27-March-2012 Mark Dexter
+ +  [#27984] Make the auto-update process more reliable across different hosts
+
+27-Mar-2012 Jean-Marie Simonet
+ $ Updating installation ini file cs-CZ
+ 
+26-Mar-2012 Jean-Marie Simonet
+ $ Updating installation ini file ru-RU
+ 
+25-Mar-2012 Jean-Marie Simonet
+ $ Updating installation ini file nl-NL
+ # *SEF issue when using article button in multilanguage. Thanks Christophe
+ 
+25-Mar-2012 Christophe Demko
+ # [#28284] System messages included in cached pages
+ # [#28268] Update MooTools to 1.4.5 (Rouven Weßling)
+ # [#28286] Fix @since tags for 2.5.4. Code style in CMS libraries. (Rouven Weßling)
+
+23-Mar-2012 Jean-Marie Simonet
+ $ Updating installation ini file sq-IQ
+ 
+23-Mar-2012 Christophe Demko
+  # [#28175] *Calendar readonly="true" status prevents loading custom calendars.
+  # [#28277] Wrong 'category' tag in category feed
+
+22-Mar-2012 Jean-Marie Simonet
+ $ Updating installation ini files cbq-IQ, de-DE, sv-SE
+ # [#28280] Regression in the com_installer warnings. Thanks Rouven
+ # [#28154] RSS feed of com_finder throws fatal error. Thanks Elijah.
+ # [#28266] Sql error generated in menus. Thanks Sudhi
+ # [#28265] Fix use of deprecated API in com_installer. Thanks Rouven
+
 21-Mar-2012 Jean-Marie Simonet
  $ Updating installation ini files af-ZA, ar-AA, az-AZ, bg-BG, hr-HR, ro-RO
  $ Updating installation ini files fi-FI, bs-BA
+ $ Updating installation ini files th-TH, uk-UA
 
 19-Mar-2012 Mark Dexter
  # [#28269] *Protected extensions can be disabled through the toolbar
