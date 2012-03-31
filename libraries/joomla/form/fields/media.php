@@ -60,7 +60,7 @@ class JFormFieldMedia extends JFormField
 			// Load the modal behavior script.
 			JHtml::_('behavior.modal');
 
-			// Build the script. (BP id -> value? fireEvent doesn't fire onchange, only mootools change events.)
+			// Build the script.
 			$script = array();
 			$script[] = '	function jInsertFieldValue(value, id) {';
 			$script[] = '		var old_value = document.id(id).value;';
@@ -68,10 +68,9 @@ class JFormFieldMedia extends JFormField
 			$script[] = '			var elem = document.id(id);';
 			$script[] = '			elem.value = value;';
 			$script[] = '			elem.fireEvent("change");';
-			$script[] = '			if (elem.onchange) {';
+			$script[] = '			if (typeof(elem.onchange) === \'function\') {';
 			$script[] = '				elem.onchange();';
 			$script[] = '			}';
-			$script[] = '			jMediaRefreshPreview(value, id);';
 			$script[] = '		}';
 			$script[] = '	}';
 			
@@ -115,7 +114,7 @@ class JFormFieldMedia extends JFormField
 		if ($this->value && file_exists(JPATH_ROOT . '/' . $this->value))
 		{
 			$folder = explode('/', $this->value);
-			array_shift($folder);
+			array_diff_assoc($folder, explode('/', JComponentHelper::getParams('com_media')->get('image_path', 'images')));
 			array_pop($folder);
 			$folder = implode('/', $folder);
 		}
@@ -150,7 +149,7 @@ class JFormFieldMedia extends JFormField
 		$html[] = '	</div>';
 		$html[] = '</div>';
 
-		// The Preview.
+				// The Preview.
 		$preview = (string) $this->element['preview'];
 		$showPreview = true;
 		$showAsTooltip = false;
