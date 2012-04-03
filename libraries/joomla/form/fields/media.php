@@ -91,16 +91,14 @@ class JFormFieldMedia extends JFormField
 			$script[] = '		} ';
 			$script[] = '	}';
 
-			$script[] = <<<JS
-			function jMediaRefreshPreviewTip(tip)
-			{
-				tip.setStyle("display", "block");
-				var img = tip.getElement("img.media-preview");
-				var id = img.getProperty("id");
-				id = id.substring(0, id.length - "_preview".length);
-				jMediaRefreshPreview(id);
-			}
-JS;
+			$script[] = '	function jMediaRefreshPreviewTip(tip)';
+			$script[] = '	{';
+			$script[] = '		tip.setStyle("display", "block");';
+			$script[] = '		var img = tip.getElement("img.media-preview");';
+			$script[] = '		var id = img.getProperty("id");';
+			$script[] = '		id = id.substring(0, id.length - "_preview".length);';
+			$script[] = '		jMediaRefreshPreview(id);';
+			$script[] = '	}';
 
 			// Add the script to the document head.
 			JFactory::getDocument()->addScriptDeclaration(implode("\n", $script));
@@ -205,7 +203,8 @@ JS;
 			);
 			$img = JHtml::image($src, JText::_('JLIB_FORM_MEDIA_PREVIEW_ALT'), $attr);
 			$previewImg = '<div id="' . $this->id . '_preview_img"' . ($src ? '' : ' style="display:none"') . '>' . $img . '</div>';
-			$previewImgEmpty = '<div id="' . $this->id . '_preview_empty"' . ($src ? ' style="display:none"' : '') . '>' . JText::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY') . '</div>';
+			$previewImgEmpty = '<div id="' . $this->id . '_preview_empty"' . ($src ? ' style="display:none"' : '') . '>'
+				. JText::_('JLIB_FORM_MEDIA_PREVIEW_EMPTY') . '</div>';
 
 			$html[] = '<div class="media-preview fltlft">';
 			if ($showAsTooltip)
@@ -213,7 +212,7 @@ JS;
 				$tooltip = $previewImgEmpty . $previewImg;
 				$options = array(
 					'title' => JText::_('JLIB_FORM_MEDIA_PREVIEW_SELECTED_IMAGE'),
-					'text' =>  JText::_('JLIB_FORM_MEDIA_PREVIEW_TIP_TITLE'),
+					'text' => JText::_('JLIB_FORM_MEDIA_PREVIEW_TIP_TITLE'),
 					'class' => 'hasTipPreview'
 				);
 				$html[] = JHtml::tooltip($tooltip, $options);
