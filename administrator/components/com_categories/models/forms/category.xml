@@ -212,7 +212,9 @@
 				name="image"
 				type="media"
 				label="COM_CATEGORIES_FIELD_IMAGE_LABEL"
-				description="COM_CATEGORIES_FIELD_IMAGE_DESC" />
+				description="COM_CATEGORIES_FIELD_IMAGE_DESC"
+				preview="yes"
+				disabled="true" />
 		</fieldset>
 	</fields>
 
