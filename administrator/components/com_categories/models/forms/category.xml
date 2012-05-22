@@ -213,8 +213,9 @@
 				type="media"
 				label="COM_CATEGORIES_FIELD_IMAGE_LABEL"
 				description="COM_CATEGORIES_FIELD_IMAGE_DESC"
-				preview="yes"
-				disabled="true" />
+				preview_width="300"
+				preview_height="0"
+				/>
 		</fieldset>
 	</fields>
 
